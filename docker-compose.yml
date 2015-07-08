@@ -6,8 +6,13 @@ elasticsearch:
   - "9300:9300"
 logstash:
   image: logstash
+  ports:
+  - "8080:8080"
   links:
   - elasticsearch:elasticsearch
+  volumes:
+  - "config/logstash/simple.conf:/config/simple.conf:ro"
+  command: logstash -f /config/simple.conf
 kibana:
   image: kibana
   links:
